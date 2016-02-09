@@ -8,7 +8,9 @@ def simple_load():
 
 def load_withnames():
 	# retrieve the file name of the calling module
-	name = inspect.getmodule(inspect.stack()[1][0]).__file__;
+	# note this has to match the number of calls back from host
+	back = 2
+	name = inspect.getmodule(inspect.stack()[back][0]).__file__;
 
 	# the base name of this module
 	basename = lambda x: os.path.splitext(os.path.split(x)[1])[0]
@@ -22,9 +24,10 @@ def load_withnames():
 		os.listdir(os.path.dirname(os.path.realpath(name))) if pattern.match(x)]
 
 	# load the files and send them back
-	modules = [ {
-		'name:': basename(x[1])[len(basefile) + 1:],
+	return [ {
+		'name': basename(x[1])[len(basefile) + 1:],
 		'plugin': importlib.machinery.SourceFileLoader('plugin_' + x[0], x[1]).load_module('plugin_' + x[0])
 		} for x in files]
 
-	return modules
+def load_bykeys():
+	return { x['name']: x['plugin'] for x in load_withnames() };
