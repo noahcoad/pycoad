@@ -4,13 +4,12 @@ import importlib.machinery, os, os.path, re, inspect
 # calling file name: example.py
 # will then load: example_one.py, example_two.py, etc
 def simple_load():
-	return [x['plugin'] for x in load_withnames()]
+	return [x['plugin'] for x in load_withnames(stackback = 2)]
 
-def load_withnames():
+def load_withnames(stackback = 1):
 	# retrieve the file name of the calling module
 	# note this has to match the number of calls back from host
-	back = 2
-	name = inspect.getmodule(inspect.stack()[back][0]).__file__;
+	name = inspect.getmodule(inspect.stack()[stackback][0]).__file__;
 
 	# the base name of this module
 	basename = lambda x: os.path.splitext(os.path.split(x)[1])[0]
@@ -30,4 +29,4 @@ def load_withnames():
 		} for x in files]
 
 def load_bykeys():
-	return { x['name']: x['plugin'] for x in load_withnames() };
+	return { x['name']: x['plugin'] for x in load_withnames(stackback = 2) };

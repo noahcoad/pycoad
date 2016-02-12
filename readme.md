@@ -1,5 +1,7 @@
 Misc handy python utilities
 
+run tests with py.test
+
 # plugins
 A very simple plugin loader
 
@@ -18,11 +20,11 @@ first plugin
 
     # file: feeling_happy.py
     def run(name):
-      return "Feeling happy %s!" % name
+      return "Feeling alive today %s!" % name
 
 second plugin
 
     # file: feeling_sad.py
     def run(name):
-    	return "%s is feeling sad =(" % name
+    	return "%s is feeling down =(" % name
 
