@@ -14,7 +14,7 @@ loader
     import pycoad
     
     plugins = pycoad.plugins.simple_load()
-    print([x.run("Bobby") for plugins])
+    print([x.run("Bobby") for x in plugins])
 
 first plugin
 
@@ -26,5 +26,5 @@ second plugin
 
     # file: feeling_sad.py
     def run(name):
-    	return "%s is feeling down =(" % name
+      return "%s is feeling down =(" % name
 
